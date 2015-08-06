@@ -3,17 +3,21 @@ from time import sleep
 from time import time
 from lib.get_duration import get_duration
 from lib.persist import persist
+from lib.log import log
 
-BASE_URL = 'https://maps.googleapis.com/maps/api/directions/json'
+BASE_URL = 'http://dev.virtualearth.net/REST/V1/Routes/Driving'
 OUT_FILE = 'record.csv'
-INTERVAL_SECONDS = 5 * 60
+INTERVAL_SECONDS = 4 * 60
 
 
 def main(base_url, config):
 
     while True:
-        duration = get_duration(base_url, config)
-        persist(time(), duration, OUT_FILE)
+        try:
+            duration = get_duration(base_url, config)
+            persist(time(), duration, OUT_FILE)
+        except Exception as e:
+            log(e)
         sleep(INTERVAL_SECONDS)
 
 

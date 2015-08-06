@@ -2,6 +2,7 @@ import csv
 
 
 def _write_row(row, out_file):
+    print(row)
     with open(out_file, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(row)
